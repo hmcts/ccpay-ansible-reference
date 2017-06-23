@@ -1,0 +1,51 @@
+---
+
+- name: devops.repos
+  src: git@git.reform.hmcts.net:devops/repos-role.git
+  scm: git
+  version: master
+
+- name: devops.common
+  src: git@git.reform.hmcts.net:devops/common-role.git
+  scm: git
+  version: master
+
+- name: devops.postgresql
+  src: git@git.reform.hmcts.net:devops/postgresql-role.git
+  scm: git
+  version: master
+
+- name: devops.packages
+  src: git@git.reform.hmcts.net:devops/packages-role.git
+  scm: git
+  version: master
+
+- name: devops.docker
+  src: git@git.reform.hmcts.net:devops/docker-role.git
+  scm: git
+  version: master
+
+- name: devops.docker-app
+  src: git@git.reform.hmcts.net:devops/docker-app-role.git
+  scm: git
+  version: master
+
+- name: devops.hashi-vault-client
+  src: git@git.reform.hmcts.net:devops/hashi-vault-client-role.git
+  scm: git
+  version: master
+
+- name: devops.journalbeat
+  src: git@git.reform.hmcts.net:devops/journalbeat-role.git
+  scm: git
+  version: master
+
+- name: devops.zabbix-statusprobe
+  src: git@git.reform.hmcts.net:devops/zabbix-statusprobe-role.git
+  scm: git
+  version: master
+
+- name: devops.backup
+  src: git@git.reform.hmcts.net:devops/backup-role.git
+  scm: git
+  version: master

@@ -1,0 +1,41 @@
+---
+
+reference_api_java_opts: "-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/opt/reference/reference_api -Xms128m -Xmx256m"
+
+packages:
+  - name: "reference-api"
+    project: "cc"
+    install_from: "artifactory"
+    deployment_env: "{{ deployment_env }}"
+    version: "{{ versions.reference_api_version | default('-1') }}"
+    custom_vars_env:
+      - { name: "JAVA_OPTS",
+          value: "{{ reference_api_java_opts }}" }
+      - { name: "SERVER_PORT",
+          value: "{{ reference_api.port }}" }
+      - { name: "ROOT_APPENDER",
+          value: "JSON_CONSOLE" }
+      - { name: "REFORM_SERVICE_NAME",
+          value: "reference-api" }
+      - { name: "REFORM_TEAM",
+          value: "cc" }
+      - { name: "REFORM_ENVIRONMENT",
+          value: "{{ deployment_env }}" }
+      - { name: "AUTH_IDAM_CLIENT_BASEURL",
+          value: "{{ idam.base_url }}" }
+      - { name: "AUTH_PROVIDER_SERVICE_CLIENT_BASEURL",
+          value: "{{ service_auth_provider.base_url }}" }
+      - { name: "PAYMENT_CLIENT_BASEURL",
+          value: "{{ payment.base_url }}" }
+
+journalbeat:
+  field_metadata:
+    team: cc
+    environment: '{{ deployment_env }}'
+  tags: ['application']
+  units: ['cc-reference-api.service']
+  logstash:
+    hosts: "{{ logstash.hosts }}"
+
+zabbix_probe_checks:
+  - {app: "reference-api", type: "health", uri: "http://localhost:{{ reference_api.port }}/health"}

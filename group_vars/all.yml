@@ -1,0 +1,16 @@
+---
+
+proxy:
+  scheme: "http"
+  host: "proxyout.reform"
+  port: "8080"
+
+logstash:
+  hosts:
+    - "reformmgmtdevopselasticsearch01:5044"
+    - "reformmgmtdevopselasticsearch02:5044"
+    - "reformmgmtdevopselasticsearch03:5044"
+
+journalbeat_ssl_crt: "{{ lookup('hashi_vault', 'secret=secret/devops/dev/ssl/ssl_crt_STAR_reform_hmcts_net:value')|replace('\\n', '\n') }}"
+journalbeat_ssl_key: "{{ lookup('hashi_vault', 'secret=secret/devops/dev/ssl/ssl_key_STAR_reform_hmcts_net:value')|replace('\\n', '\n') }}"
+journalbeat_ssl_ca: "{{ lookup('hashi_vault', 'secret=secret/devops/dev/ssl/ssl_ca_STAR_reform_hmcts_net:value')|replace('\\n', '\n') }}"

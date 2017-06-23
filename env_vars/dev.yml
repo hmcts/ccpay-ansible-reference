@@ -1,0 +1,14 @@
+deployment_env: development
+
+reference_api:
+  host: betaDevAccXXXXApp01.reform.hmcts.net
+  port: # TODO
+
+idam:
+  base_url: 'http://betaDevAccidamAppLB.reform.hmcts.net:4501'
+
+service_auth_provider:
+  base_url: 'http://betaDevAccidamAppLB.reform.hmcts.net:4502'
+
+payment:
+  base_url: 'http://betaDevBccpayAppLB.reform.hmcts.net:4421'

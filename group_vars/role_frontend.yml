@@ -1,0 +1,31 @@
+---
+
+nodejs_log_output: "single"
+
+packages:
+  - name: "reference-web"
+    project: "cc"
+    install_from: "artifactory"
+    deployment_env: "{{ deployment_env }}"
+    version: "{{ versions.reference_web_version | default('-1') }}"
+    custom_vars_env:
+    - { name: "NODE_ENV",
+        value: "{{ deployment_env }}" }
+    - { name: "HTTP_PORT",
+        value: "{{ reference_web.port }}" }
+    - { name: "IDAM_HOST",
+        value: "{{ idam_api.base_url }}" }
+    - { name: "APPEAL_STORE_HOST",
+        value: "http://{{ reference_api.host }}:{{ reference_api.port }}" }
+
+journalbeat:
+  field_metadata:
+    team: cc
+    environment: '{{ deployment_env }}'
+  tags: ['application']
+  units: [ 'cc-reference-web.service' ]
+  logstash:
+    hosts: "{{ logstash.hosts }}"
+
+zabbix_probe_checks:
+  - {app: "reference-web", type: "health", uri: "http://localhost:{{ reference_web.port }}/health"}

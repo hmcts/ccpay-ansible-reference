@@ -1,0 +1,22 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+    - name: Include environment specific vars
+      include_vars: "env_vars/{{ deploy_target }}.yml"
+  roles:
+    - role: devops.repos
+    - role: devops.common
+
+- hosts: role_backend
+  roles:
+    - role: devops.packages
+    - role: devops.journalbeat
+    - role: devops.zabbix-statusprobe
+
+- hosts: role_frontend
+  roles:
+    - role: devops.packages
+    - role: devops.journalbeat
+    - role: devops.zabbix-statusprobe
